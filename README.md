@@ -12,7 +12,7 @@
 メインウェポンとなるような技は同じタイプの技、
 サブウェポンとなるような技は他のサブウェポンとなりうる技が検索結果として現れる傾向が見れた。
 
-![](https://github.com/Take-Taku/poke_waza2vec/issues/1#issue-1315586654)
+![参考図](https://github.com/Take-Taku/poke_waza2vec/issues/1#issue-1315586654)
 
 # DEMO
  
