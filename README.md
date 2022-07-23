@@ -59,6 +59,4 @@ Waza.similarity(pos=['waza1', 'waza2], neg=['waza3'])
 pcaで次元圧縮した後、kmeansを用いてクラスタリングを行う。
 結果を図とグループされた技ごとに出力する
 
- 
-# License
 
