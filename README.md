@@ -27,7 +27,7 @@ DEMOの実行方法など、"hoge"の基本的な使い方を説明する
 ```bash
 git clone https://github.com/Take-Taku/poke_waza2vec.git
 cd poke_waza2vec
-virturalenv -p python3.8.1 venv
+virtualenv -p python3.8.1 venv
 source venv/bin/activate
 pip install -r requirements.txt
 cd src
