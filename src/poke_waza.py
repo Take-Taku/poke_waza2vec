@@ -134,5 +134,5 @@ if __name__ == '__main__':
     #waza.word2vec()
     #waza.save(name='waza.pickle')
     waza = Waza.load()
-    waza.similarity('かみなり')
+    waza.similarity('おにび')
     waza.do_kmeans()
