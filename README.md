@@ -54,7 +54,7 @@ Waza.similarity('waza')
 複数の入力した技の計算を行い、一番近いcos類似度の技を返す
 word2vecを用いているのでついでに実装したが、解釈が困難
 ```bass
-Waza.similarity(pos=['waza1', 'waza2], neg=['waza3])
+Waza.similarity(pos=['waza1', 'waza2], neg=['waza3'])
 ```
 pcaで次元圧縮した後、kmeansを用いてクラスタリングを行う。
 結果を図とグループされた技ごとに出力する
