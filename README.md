@@ -14,21 +14,12 @@
 
 ![参考図](https://user-images.githubusercontent.com/68584494/180594737-85479df4-1a8a-48ab-8e7d-83e39b031d79.png)
 
-
- 
-# Environment
-```bash
-virtualenv -p python3.8.1 env1
-```
  
 # Requirement
  
-"hoge"を動かすのに必要なライブラリなどを列挙する
- 
-* huga 3.5.2
-* hogehuga 1.0.2
- 
-# Installation
+```bash
+pip install huga_package
+```
  
 Requirementで列挙したライブラリなどのインストール方法を説明する
  
