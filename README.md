@@ -19,8 +19,8 @@
 実行方法
 
 実行したい内容によって適宜poke_waza.pyの
-if __name__ == '__main__':
-以下の部分を変更するよよい。
+ if __name__ == '__main__': 
+以降の部分を変更するとよい。
  
 ```bash
 git clone https://github.com/Take-Taku/poke_waza2vec.git
