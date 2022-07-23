@@ -14,13 +14,12 @@
 
 ![参考図](https://user-images.githubusercontent.com/68584494/180594737-85479df4-1a8a-48ab-8e7d-83e39b031d79.png)
 
-# DEMO
+
  
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
- 
-# Features
- 
-"hoge"のセールスポイントや差別化などを説明する
+# Environment
+```bash
+virtualenv -p python3.8.1 env1
+```
  
 # Requirement
  
