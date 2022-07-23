@@ -128,7 +128,7 @@ class Waza():
                     same_group.append(self.model.wv.index_to_key[i])  
                 write2txt('../result/group'+str(num)+'.txt', same_group) 
 
-    # 技をベクトル化
+    # 技をベクトルで表す
     def get_waza_vector(self):
         wazas = self.model.wv.index_to_key   
         vectors = []
