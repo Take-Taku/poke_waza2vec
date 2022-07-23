@@ -8,29 +8,30 @@ import pprint
 import numpy as np
 import pickle
 
+# テキストに出力
 def write2txt(dir, results):
     with open(dir, mode='w') as f:
         f.write('\n'.join(results))
 
 class Waza():
     def __init__(self
-                , train_data = '../data/nurturedpoke.csv'
-                , vector_size = 16
-                , sg = 0 #cbow 0  skip-gram 1
+                , train_data:str = '../data/nurturedpoke.csv'
+                , vector_size:int = 16
+                , sg:int = 0
                 ):
-        self.train_data = train_data
-        self.vector_size = vector_size
-        self.sg = sg
+        self.train_data = train_data # 学習データのディレクトリ
+        self.vector_size = vector_size # word2vecのベクトルの次元 
+        self.sg = sg #cbow 0  skip-gram 1
 
-    # 保存
+    # pickleとしてclassごと保存
     def save(self
-            , dir='../data/'
-            , name='waza.pickle'):
+            , dir:str ='../data/'
+            , name:str ='waza.pickle'):
         with open(dir+name, 'wb') as f:
             pickle.dump(self, f)
         print('保存しました')
 
-    # 読み込み
+    # 保存したpickleの読み込み
     @classmethod
     def load(cls
             , dir='../data/'
@@ -41,16 +42,19 @@ class Waza():
         
     # word2vecを行う
     def word2vec(self):
+        # 技のみをよみこみ
         poke_df = pd.read_csv(self.train_data, index_col=0)
         waza_df = poke_df['4']
         waza_list = waza_df.tolist()
         waza_list = [w.split('/') for w in waza_list]
 
+        # 重複ない技のデータ
         waza_all = []
         for waza in waza_list:
             waza_all += waza
             waza_all = list(set(waza_all))
 
+        # word2vecを用いて学習
         self.model = Word2Vec(
                         waza_list,
                         vector_size=self.vector_size,
@@ -60,6 +64,7 @@ class Waza():
                         sg=self.sg)
         write2txt('../data/wazaList.txt', self.model.wv.index_to_key) 
         print('学習が終わりました')
+
     # 入力された技と近い技を出力
     # デフォルトは火炎放射
     def similarity(self
@@ -83,9 +88,10 @@ class Waza():
         except:
             print('技を確認してください')
 
+        # 出力
         pprint.pprint(waza_sim)
 
-
+    # pcaを行う
     def do_PCA(self
                 ,dim=2):      
         pca = PCA()
@@ -95,17 +101,21 @@ class Waza():
         #pca_col = ["PC{}".format(x + 1) for x in range(self.vector_size)]
         #df_con_ratio = pd.DataFrame([pca.explained_variance_ratio_], columns = pca_col)
         #print(df_con_ratio.head())
+
+        # 指定した次元で返す
         return feature[:, 0:dim]
 
-  
+    #  クラスタリングを行う
     def do_kmeans(self
                 , n_clusters=3
                 , dim=2):
+        # 特徴量を圧縮
         feature = self.do_PCA(dim=dim)
         kmeans = cluster.KMeans(n_clusters=n_clusters)
         kmeans.fit(feature)        
         labels = kmeans.labels_
 
+        # 2次元で図示
         plt.scatter(feature[:, 0], feature[:, 1], c=labels)
         plt.xlabel("PC1")
         plt.ylabel("PC2")
@@ -118,7 +128,7 @@ class Waza():
                     same_group.append(self.model.wv.index_to_key[i])  
                 write2txt('../result/group'+str(num)+'.txt', same_group) 
 
-
+    # 技をベクトル化
     def get_waza_vector(self):
         wazas = self.model.wv.index_to_key   
         vectors = []
