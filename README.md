@@ -39,9 +39,12 @@ python poke_waza.py
 ```
  
 # Note
- 
-注意点などがあれば書く
- 
+Wazaクラスのメソッドについて簡単に説明
+  
+モデルの保存
+```bass
+Waza.save()
+```
 # Author
  
 作成情報を列挙する
