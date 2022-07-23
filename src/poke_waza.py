@@ -34,8 +34,8 @@ class Waza():
     # 保存したpickleの読み込み
     @classmethod
     def load(cls
-            , dir='../data/'
-            , name='waza.pickle'):
+            , dir:str ='../data/'
+            , name:str ='waza.pickle'):
         with open(dir+name, 'rb') as f:
             waza = pickle.load(f)
         return waza
@@ -43,16 +43,8 @@ class Waza():
     # word2vecを行う
     def word2vec(self):
         # 技のみをよみこみ
-        poke_df = pd.read_csv(self.train_data, index_col=0)
-        waza_df = poke_df['4']
-        waza_list = waza_df.tolist()
-        waza_list = [w.split('/') for w in waza_list]
-
-        # 重複ない技のデータ
-        waza_all = []
-        for waza in waza_list:
-            waza_all += waza
-            waza_all = list(set(waza_all))
+        waza_df = pd.read_csv(self.train_data, index_col=0)
+        waza_list = waza_df.values.tolist()
 
         # word2vecを用いて学習
         self.model = Word2Vec(
@@ -139,10 +131,10 @@ class Waza():
     
 
 if __name__ == '__main__':
-    #waza = Waza(train_data = '../data/nurturedpoke.csv'
-    #            , vector_size = 32)
-    #waza.word2vec()
-    #waza.save(name='waza.pickle')
+    waza = Waza(train_data = '../data/nurturedpoke.csv'
+                , vector_size = 32)
+    waza.word2vec()
+    waza.save(name='waza.pickle')
     waza = Waza.load()
     waza.similarity('おにび')
     waza.do_kmeans()
