@@ -14,12 +14,6 @@
 
 ![参考図](https://user-images.githubusercontent.com/68584494/180594737-85479df4-1a8a-48ab-8e7d-83e39b031d79.png)
 
- 
-# Requirement
-```bash
-requirements.txt
-```
- 
 # Usage
  
 実行方法
