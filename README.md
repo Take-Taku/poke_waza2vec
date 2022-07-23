@@ -45,19 +45,28 @@ Wazaクラスのメソッドについて簡単に説明
 ```bass
 Waza.save()
 ```
-# Author
- 
-作成情報を列挙する
- 
-* 作成者
-* 所属
-* E-mail
+モデルの読み込み
+```bass
+Waza.load()
+```
+word2vecによるモデルの学習
+```bass
+Waza.word2vec()
+```
+入力した技に一番近いcos類似度の技を返す
+```bass
+Waza.similarity('waza')
+```
+複数の入力した技の計算を行い、一番近いcos類似度の技を返す
+word2vecを用いているのでついでに実装したが、解釈が困難
+```bass
+Waza.similarity(pos=['waza1', 'waza2], neg=['waza3])
+```
+pcaで次元圧縮した後、kmeansを用いてクラスタリングを行う。
+結果を図とグループされた技ごとに出力する
+```bass
+Waza.do_kmeans(n_clusters, dim)
+```
  
 # License
-ライセンスを明示する
- 
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
- 
-社内向けなら社外秘であることを明示してる
- 
-"hoge" is Confidential.
+
