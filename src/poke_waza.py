@@ -168,6 +168,6 @@ if __name__ == '__main__':
   
     waza.similarity('ねっとう')   
     waza.similarity('ほうでん')    
-    waza.similarity('フレアドライブ')    
-    #waza.do_kmeans()
+    waza.similarity('こんげんのはどう')    
+    waza.do_kmeans()
     #waza.poke_waza_sim()
