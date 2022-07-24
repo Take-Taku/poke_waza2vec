@@ -7,8 +7,11 @@ from sklearn import cluster
 import pprint
 import numpy as np
 import pickle
+<<<<<<< HEAD
 import itertools
 
+=======
+>>>>>>> b7c2157f0d9222f876faa7dae60384d0e087fc2f
 
 # テキストに出力
 def write2txt(dir, results):
@@ -18,7 +21,11 @@ def write2txt(dir, results):
 class Waza():
     def __init__(self
                 , train_data:str = '../data/nurturedpoke.csv'
+<<<<<<< HEAD
                 , vector_size:int = 32
+=======
+                , vector_size:int = 16
+>>>>>>> b7c2157f0d9222f876faa7dae60384d0e087fc2f
                 , sg:int = 0
                 ):
         self.train_data = train_data # 学習データのディレクトリ
@@ -52,12 +59,19 @@ class Waza():
         self.model = Word2Vec(
                         waza_list,
                         vector_size=self.vector_size,
+<<<<<<< HEAD
                         min_count=1,
                         window=3,
                         epochs=100,
                         sg=self.sg,
                         seed=42,
                         workers=1)
+=======
+                        min_count=5,
+                        window=3,
+                        epochs=100,
+                        sg=self.sg)
+>>>>>>> b7c2157f0d9222f876faa7dae60384d0e087fc2f
         write2txt('../data/wazaList.txt', self.model.wv.index_to_key) 
         print('学習が終わりました')
 
@@ -133,6 +147,7 @@ class Waza():
             vectors.append(waza_vector)
         return vectors
     
+<<<<<<< HEAD
     def wazas_similarity(self, wazas):
         sim = self.model.wv.similarity(*wazas)
         return sim
@@ -171,3 +186,14 @@ if __name__ == '__main__':
     waza.similarity('フレアドライブ')    
     #waza.do_kmeans()
     #waza.poke_waza_sim()
+=======
+
+if __name__ == '__main__':
+    waza = Waza(train_data = '../data/nurturedpoke.csv'
+                , vector_size = 32)
+    waza.word2vec()
+    waza.save(name='waza.pickle')
+    waza = Waza.load()
+    waza.similarity('おにび')
+    waza.do_kmeans()
+>>>>>>> b7c2157f0d9222f876faa7dae60384d0e087fc2f
