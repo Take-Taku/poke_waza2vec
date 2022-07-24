@@ -7,6 +7,8 @@ from sklearn import cluster
 import pprint
 import numpy as np
 import pickle
+import itertools
+
 
 # テキストに出力
 def write2txt(dir, results):
@@ -16,7 +18,7 @@ def write2txt(dir, results):
 class Waza():
     def __init__(self
                 , train_data:str = '../data/nurturedpoke.csv'
-                , vector_size:int = 16
+                , vector_size:int = 32
                 , sg:int = 0
                 ):
         self.train_data = train_data # 学習データのディレクトリ
@@ -50,10 +52,12 @@ class Waza():
         self.model = Word2Vec(
                         waza_list,
                         vector_size=self.vector_size,
-                        min_count=5,
+                        min_count=1,
                         window=3,
                         epochs=100,
-                        sg=self.sg)
+                        sg=self.sg,
+                        seed=42,
+                        workers=1)
         write2txt('../data/wazaList.txt', self.model.wv.index_to_key) 
         print('学習が終わりました')
 
@@ -129,12 +133,41 @@ class Waza():
             vectors.append(waza_vector)
         return vectors
     
+    def wazas_similarity(self, wazas):
+        sim = self.model.wv.similarity(*wazas)
+        return sim
+
+    def poke_waza_sim(self):
+        # 技のみをよみこみ
+        waza_df = pd.read_csv('../../../../Desktop/nurturedpoke.csv', index_col=0)
+        waza_list = waza_df.values.tolist()
+        poke = []
+        for waza in waza_list:
+            sum = 0
+            for pair in itertools.combinations(waza, 2):
+                sum += self.wazas_similarity(list(pair))
+            poke.append([waza, sum])
+
+        poke = sorted(poke, key=lambda x: x[1])
+        poke_v = [p[1] for p in poke]
+        pprint.pprint(poke[300:500])
+        
+        plt.scatter(list(range(len(poke))), poke_v)
+        plt.xlabel("PC1")
+        plt.ylabel("PC2")
+        #plt.show()
+
 
 if __name__ == '__main__':
-    waza = Waza(train_data = '../data/nurturedpoke.csv'
-                , vector_size = 32)
+    waza = Waza(train_data = '../../../../Desktop/nurturedpoke.csv'
+                , vector_size = 32
+                , sg=0)
     waza.word2vec()
     waza.save(name='waza.pickle')
     waza = Waza.load()
-    waza.similarity('おにび')
-    waza.do_kmeans()
+  
+    waza.similarity('ねっとう')   
+    waza.similarity('ほうでん')    
+    waza.similarity('フレアドライブ')    
+    #waza.do_kmeans()
+    #waza.poke_waza_sim()
