@@ -1,4 +1,5 @@
 import pickle
+from pyexpat import model
 from gensim.models.word2vec import Word2Vec
 from sklearn.decomposition import PCA
 import pandas as pd
@@ -8,6 +9,8 @@ import pprint
 import numpy as np
 import pickle
 import itertools
+import os
+import json
 
 
 # テキストに出力
@@ -20,27 +23,45 @@ class Waza():
                 , train_data:str = '../data/nurturedpoke.csv'
                 , vector_size:int = 32
                 , sg:int = 0
+                , model_dir=None
                 ):
-        self.train_data = train_data # 学習データのディレクトリ
-        self.vector_size = vector_size # word2vecのベクトルの次元 
-        self.sg = sg #cbow 0  skip-gram 1
+        if not model_dir:
+            self.train_data = train_data # 学習データのディレクトリ
+            self.vector_size = vector_size # word2vecのベクトルの次元 
+            self.sg = sg #cbow 0  skip-gram 1
+            self.model = self.word2vec()
+
+        else:
+            with open(model_dir+'/config.json', 'r') as f:
+                json_load = json.load(f)
+                print(json_load)
+            self.train_data = json_load['train_data']
+            self.vector_size = json_load['vector_size']
+            self.sg = json_load['sg']
+            self.model = Word2Vec.load(model_dir+'/poke_waza2vec.model')
 
     # pickleとしてclassごと保存
     def save(self
-            , dir:str ='../data/'
-            , name:str ='waza.pickle'):
-        with open(dir+name, 'wb') as f:
-            pickle.dump(self, f)
-        print('保存しました')
+            , dir:str ='../model/'
+            , name:str ='model1'):
+        if not os.path.exists(dir+name):
+            os.makedirs(dir+name)
+        
+        self.model.save(dir+name+'/poke_waza2vec.model')
+        write2txt(dir+name+'/wazaList.txt', self.model.wv.index_to_key) 
+        with open(dir+name+'/config.json', 'w') as f:
+            config = vars(self)
+            del config['model']
+            
+            json.dump(config, f, indent=2, ensure_ascii=False)
+
 
     # 保存したpickleの読み込み
     @classmethod
     def load(cls
-            , dir:str ='../data/'
-            , name:str ='waza.pickle'):
-        with open(dir+name, 'rb') as f:
-            waza = pickle.load(f)
-            waza.__class__ = cls
+            , dir:str ='../model/'
+            , name:str ='model1'):
+        waza = cls(model_dir=dir+name)
         return waza
         
     # word2vecを行う
@@ -50,7 +71,7 @@ class Waza():
         waza_list = waza_df.values.tolist()
 
         # word2vecを用いて学習
-        self.model = Word2Vec(
+        model = Word2Vec(
                         waza_list,
                         vector_size=self.vector_size,
                         min_count=1,
@@ -59,8 +80,9 @@ class Waza():
                         sg=self.sg,
                         seed=42,
                         workers=1)
-        write2txt('../data/wazaList.txt', self.model.wv.index_to_key) 
         print('学習が終わりました')
+        return model
+
 
     # 入力された技と近い技を出力
     # デフォルトは火炎放射
@@ -137,19 +159,18 @@ class Waza():
     def wazas_similarity(self, wazas):
         sim = self.model.wv.similarity(*wazas)
         return sim
-
-    
+ 
 
 
 if __name__ == '__main__':
     #waza = Waza(train_data = '../../../../Desktop/nurturedpoke.csv'
     #            , vector_size = 32
     #            , sg=0)
-    #waza.word2vec()
-    #waza.save(name='waza.pickle')
+    #waza.save()
+
     waza = Waza.load()
   
     waza.similarity('かみなりのキバ')    
-    waza.similarity('そうでん')    
-    waza.do_kmeans(n_clusters=3, dim=32)
+    #waza.similarity('そうでん')    
+    #waza.do_kmeans(n_clusters=3, dim=32)
     #waza.poke_waza_sim()

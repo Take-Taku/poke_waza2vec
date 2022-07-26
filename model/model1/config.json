@@ -1,0 +1,5 @@
+{
+  "train_data": "../../../../Desktop/nurturedpoke.csv",
+  "vector_size": 32,
+  "sg": 0
+}
