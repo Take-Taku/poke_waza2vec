@@ -21,7 +21,7 @@ def write2txt(dir, results):
 class Waza():
     def __init__(self
                 , train_data:str = '../data/RentalPartyData.csv'
-                , vector_size:int = 32
+                , vector_size:int = 16
                 , sg:int = 0
                 , model_dir=None
                 ):
@@ -164,13 +164,13 @@ class Waza():
 
 
 if __name__ == '__main__':
-    '''
+    
     waza = Waza(train_data='../data/RentalPartyData.csv'
-                , vector_size=24
+                , vector_size=32
                 , sg=0)
     
     waza.save(name='model1')
-    '''
+    
     waza = Waza.load(name='model1')
   
     waza.similarity(pos=['じしん', 'ねっとう'], neg=['たきのぼり'])    
