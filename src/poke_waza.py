@@ -164,16 +164,17 @@ class Waza():
 
 
 if __name__ == '__main__':
-    waza = Waza(train_data = '../data/RentalPartyData.csv'
-                , vector_size = 32
+    
+    waza = Waza(train_data='../data/RentalPartyData.csv'
+                , vector_size=24
                 , sg=0)
     
-    waza.save()
-
-    waza = Waza.load()
+    waza.save(name='model1')
+    
+    waza = Waza.load(name='model1')
   
     waza.similarity(pos=['じしん', 'ねっとう'], neg=['たきのぼり'])    
     waza.similarity('アクアブレイク')    
     
-    #waza.do_kmeans(n_clusters=3, dim=32)
+    waza.do_kmeans(n_clusters=3, dim=2)
     #waza.poke_waza_sim()
