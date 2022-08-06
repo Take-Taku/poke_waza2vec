@@ -20,7 +20,7 @@ def write2txt(dir, results):
 
 class Waza():
     def __init__(self
-                , train_data:str = '../data/nurturedpoke.csv'
+                , train_data:str = '../data/RentalPartyData.csv'
                 , vector_size:int = 32
                 , sg:int = 0
                 , model_dir=None
@@ -67,9 +67,10 @@ class Waza():
     # word2vecを行う
     def word2vec(self):
         # 技のみをよみこみ
-        waza_df = pd.read_csv(self.train_data, index_col=0)
+        waza_df = pd.read_csv(self.train_data, index_col=0, na_filter=False)
+        waza_df = waza_df.loc[:, ['weapon1','weapon2','weapon3','weapon4']]
         waza_list = waza_df.values.tolist()
-
+        
         # word2vecを用いて学習
         model = Word2Vec(
                         waza_list,
@@ -163,14 +164,16 @@ class Waza():
 
 
 if __name__ == '__main__':
-    #waza = Waza(train_data = '../../../../Desktop/nurturedpoke.csv'
-    #            , vector_size = 32
-    #            , sg=0)
-    #waza.save()
+    waza = Waza(train_data = '../data/RentalPartyData.csv'
+                , vector_size = 32
+                , sg=0)
+    
+    waza.save()
 
     waza = Waza.load()
   
-    waza.similarity('かみなりのキバ')    
-    #waza.similarity('そうでん')    
+    waza.similarity(pos=['じしん', 'ねっとう'], neg=['たきのぼり'])    
+    waza.similarity('アクアブレイク')    
+    
     #waza.do_kmeans(n_clusters=3, dim=32)
     #waza.poke_waza_sim()
