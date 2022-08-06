@@ -18,6 +18,7 @@
 Fusicの塚本という方がデータを置いてくれていましたので、そちらを使用いたしました。
 
 ブログ：https://tech.fusic.co.jp/posts/2020-11-26-pokemon-prog/
+
 データ元：https://gist.github.com/TsuMakoto/c465f82513b3ab3bf98ca0bed7fe1936
 
 
