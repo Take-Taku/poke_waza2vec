@@ -14,6 +14,12 @@
 
 ![参考図](https://user-images.githubusercontent.com/68584494/180594737-85479df4-1a8a-48ab-8e7d-83e39b031d79.png)
 
+# Data
+Fusicの塚本という方がデータを置いていましたので、そちらを使用いたしました。
+ブログ：https://tech.fusic.co.jp/posts/2020-11-26-pokemon-prog/
+データ元：https://gist.github.com/TsuMakoto/c465f82513b3ab3bf98ca0bed7fe1936
+
+
 # Usage
  
 実行方法
