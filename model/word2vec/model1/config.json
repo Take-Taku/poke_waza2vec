@@ -1,5 +1,0 @@
-{
-  "train_data": "../data/RentalPartyData.csv",
-  "vector_size": 32,
-  "sg": 0
-}
