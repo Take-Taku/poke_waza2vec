@@ -220,6 +220,9 @@ class Rustic_vec():
         df['PP']  = std(df, 'PP')
         #df['タイプ']  = std(df, 'タイプ')
         df['分類']  = std(df, '分類')
+        df['直接']  = std(df, '直接')
+        df['守る']  = std(df, '守る')
+        df['対象']  = std(df, '対象')
         
 
         df['威力'] = df['威力'].where(df['威力'] >= 0, -1) 
@@ -350,7 +353,7 @@ class Analyzer:
             #cm = plt.get_cmap("Spectral")
             #colorlist = ['r', 'g', 'b']
 
-            print(waza_types_id)
+            #print(waza_types_id)
             for i, id in enumerate(waza_types_id):
                 index_num = [n for n, v in enumerate(labels) if v == id]
 
@@ -417,12 +420,11 @@ if __name__ == '__main__':
         models=[poke_waza2vec, rustic_vec]
         , wazas=poke_waza2vec.model.wv.index_to_key
         )
-    #ana.compare_kinds()
-    #ana.compare_types()
-    analyzer.compare_search('かえんほうしゃ')
-    analyzer.compare_search('たきのぼり')
-    analyzer.compare_search('バークアウト')
-    analyzer.compare_search('じこさいせい')
-    analyzer.compare_search('りゅうのまい')
-
- 
+    
+    analyzer.compare_kinds()
+    analyzer.compare_types()
+    #analyzer.compare_search('かえんほうしゃ')
+    #analyzer.compare_search('たきのぼり')
+    #analyzer.compare_search('バークアウト')
+    #analyzer.compare_search('じこさいせい')
+    #analyzer.compare_search('りゅうのまい')
