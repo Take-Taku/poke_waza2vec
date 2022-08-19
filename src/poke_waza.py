@@ -92,7 +92,6 @@ class Poke_waza2vec():
             self.model_dir = model_dir
 
 
-    # pickleとしてclassごと保存
     def save(self
             , dir:str ='../model/word2vec/'
             , name:str ='model1'):
@@ -108,7 +107,6 @@ class Poke_waza2vec():
             json.dump(config, f, indent=2, ensure_ascii=False)
 
 
-    # 保存したpickleの読み込み
     @classmethod
     def load(cls
             , dir:str ='../model/word2vec/'
@@ -225,8 +223,8 @@ class Rustic_vec():
         df['対象']  = std(df, '対象')
         
 
-        df['威力'] = df['威力'].where(df['威力'] >= 0, -1) 
-        df['ダイ'] = df['ダイ'].where(df['ダイ'] >= 0, -1) 
+        df['威力'] = df['威力'].where(df['威力'] >= 0, 0) 
+        df['ダイ'] = df['ダイ'].where(df['ダイ'] >= 0, 0) 
         df['命中'] = df['命中'].where(df['命中'] >= 0, -1)
         df['PP'] = df['PP'].where(df['PP'] >= 0, -1)
 
@@ -264,7 +262,7 @@ class Analyzer:
         self.wazas = wazas
 
 
-    def compare_kinds(self):
+    def compare_distribution(self):
         df = pd.read_csv('../data/wazaList.csv', index_col=0)
         le = LabelEncoder() 
         df['分類'] = le.fit_transform(df['分類'].values)
@@ -409,7 +407,7 @@ if __name__ == '__main__':
     rustic_vec = Rustic_vec(
                     train_data='../data/wazaList.csv'
                     )
-
+    
     poke_waza2vec.save(name='vec1')
     rustic_vec.save(name='vec1')
     '''
@@ -421,10 +419,10 @@ if __name__ == '__main__':
         , wazas=poke_waza2vec.model.wv.index_to_key
         )
     
-    analyzer.compare_kinds()
+    analyzer.compare_distribution()
     analyzer.compare_types()
-    #analyzer.compare_search('かえんほうしゃ')
-    #analyzer.compare_search('たきのぼり')
-    #analyzer.compare_search('バークアウト')
-    #analyzer.compare_search('じこさいせい')
-    #analyzer.compare_search('りゅうのまい')
+    analyzer.compare_search('かえんほうしゃ')
+    analyzer.compare_search('たきのぼり')
+    analyzer.compare_search('バークアウト')
+    analyzer.compare_search('じこさいせい')
+    analyzer.compare_search('りゅうのまい')
