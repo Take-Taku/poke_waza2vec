@@ -12,7 +12,7 @@
 一方で、ベクトルの類似度をとると、若干ではあるが、よく一緒に採用される技や
 同系統の技が予測される傾向がみれた。
 
-![参考図](https://user-images.githubusercontent.com/68584494/180594737-85479df4-1a8a-48ab-8e7d-83e39b031d79.png)
+![参考図](https://user-images.githubusercontent.com/68584494/185729022-8b2e6ce8-345e-4e32-b122-076745584b98.png)
 
 # Data
 Fusicの塚本という方がデータを置いてくれていましたので、そちらを使用いたしました。
