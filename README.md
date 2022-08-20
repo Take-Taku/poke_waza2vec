@@ -46,33 +46,5 @@ python poke_waza.py
 また、そのときのベクトル分類の様子をfig/kmeans.pngに示す。
 比較すると傾向として、攻撃型、特攻型、耐久型のポケモンにそれぞれ覚えさせる技に分類されていることが分かる。
 
-# Note
-Wazaクラスのメソッドについて簡単に説明
 
-モデルの保存
-```bass
-Waza.save()
-```
-モデルの読み込み
-```bass
-Waza.load()
-```
-word2vecによるモデルの学習
-```bass
-Waza.word2vec()
-```
-入力した技に一番近いcos類似度の技を返す
-```bass
-Waza.similarity('waza')
-```
-複数の入力した技の計算を行い、一番近いcos類似度の技を返す
-word2vecを用いているのでついでに実装したが、解釈が困難
-```bass
-Waza.similarity(pos=['waza1', 'waza2], neg=['waza3'])
-```
-pcaで次元圧縮した後、kmeansを用いてクラスタリングを行う。
-結果を図とグループされた技ごとに出力する
-```bass
-Waza.do_kmeans()
-```
 
